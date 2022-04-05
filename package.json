@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier . --ignore-unknown --write",
-    "lint": "eslint . --format=pretty --quiet"
+    "lint": "eslint . --format=pretty --quiet",
+    "build": "babel src/** -d dist",
+    "start": "npm run build && node dist/index.js"
   },
   "devDependencies": {
     "eslint": "^8.12.0",
@@ -17,5 +19,8 @@
     "eslint-plugin-security": "^1.4.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0"
   }
 }
