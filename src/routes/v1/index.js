@@ -1,12 +1,12 @@
 const express = require('express')
-const testRoute = require('./exp-test')
+const acronymRoute = require('./acronym')
 
 const router = express.Router()
 
 const routes = [
   {
-    path: '/exp-test',
-    route: testRoute
+    path: '/acronym',
+    route: acronymRoute
   }
 ]
 

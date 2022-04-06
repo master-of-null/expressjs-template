@@ -1,5 +1,6 @@
 const express = require('express')
 const logger = require('../../lib/logger')
+const { createAcronym } = require('../../controllers/acronyms')
 
 const router = express.Router()
 
@@ -13,6 +14,6 @@ const respond = (req, res) => {
   res.send('Great Success!')
 }
 
-router.route('/').get(say('one'), say('two'), respond)
+router.route('/').get(say('one'), say('two'), respond).post(createAcronym)
 
 module.exports = router

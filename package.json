@@ -8,7 +8,10 @@
     "format": "prettier . --ignore-unknown --write",
     "lint": "eslint . --format=pretty --quiet",
     "dev": "NODE_ENV=development nodemon src/index.js | pino-pretty",
-    "setupenv": "cp -n .env.example .env"
+    "setupenv": "cp -n .env.example .env",
+    "migrate": "knex migrate:latest --knexfile db/knexfile.js",
+    "rollback": "knex migrate:rollback --knexfile db/knexfile.js",
+    "seed": "knex seed:run --knexfile db/knexfile.js"
   },
   "devDependencies": {
     "eslint": "^8.12.0",
@@ -26,6 +29,8 @@
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "http-status": "^1.5.0",
+    "knex": "^1.0.5",
+    "pg": "^8.7.3",
     "pino": "^7.9.2"
   }
 }
