@@ -2,7 +2,7 @@ const acronymService = require('../services/acronym')
 
 const createAcronym = async (req, res) => {
   const { value, description } = req.body
-  await acronymService.create(value, description)
+  await acronymService.createAcronym(value, description)
   res.send('Success!')
 }
 
@@ -18,12 +18,19 @@ const getAcronyms = async (req, res) => {
 const updateAcronym = async (req, res) => {
   const { acronym } = req.params
   const { description } = req.body
-  await acronymService.update(acronym, description)
+  await acronymService.updateAcronym(acronym, description)
+  res.send('Success!')
+}
+
+const deleteAcronym = async (req, res) => {
+  const { acronym } = req.params
+  await acronymService.deleteAcronym(acronym)
   res.send('Success!')
 }
 
 module.exports = {
   createAcronym,
   getAcronyms,
-  updateAcronym
+  updateAcronym,
+  deleteAcronym
 }
