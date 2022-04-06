@@ -15,7 +15,15 @@ const getAcronyms = async (req, res) => {
   res.send({ results, count })
 }
 
+const updateAcronym = async (req, res) => {
+  const { acronym } = req.params
+  const { description } = req.body
+  await acronymService.update(acronym, description)
+  res.send('Success!')
+}
+
 module.exports = {
   createAcronym,
-  getAcronyms
+  getAcronyms,
+  updateAcronym
 }
