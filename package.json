@@ -7,7 +7,7 @@
   "scripts": {
     "format": "prettier . --ignore-unknown --write",
     "lint": "eslint . --format=pretty --quiet",
-    "dev": "NODE_ENV=development nodemon src/index.js",
+    "dev": "NODE_ENV=development nodemon src/index.js | pino-pretty",
     "setupenv": "cp -n .env.example .env"
   },
   "devDependencies": {
