@@ -10,6 +10,7 @@
     },
     "rules": {
       "func-names": "off",
+      "no-return-await": "off",
       "no-console": "error",
       "consistent-return": "off",
       "security/detect-object-injection": "off"
