@@ -8,7 +8,6 @@ const { errorConverter, errorHandler } = require('./middlewares/error')
 const ApiError = require('./lib/errors/ApiError')
 
 const app = express()
-
 // set security HTTP headers
 app.use(helmet())
 

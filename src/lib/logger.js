@@ -2,10 +2,10 @@ const pino = require('pino')
 const config = require('../config/config')
 
 const base = {}
-const isDevelopmentMode = config.NODE_ENV === 'development'
+const isDevelopmentMode = config.env === 'development'
 
 module.exports = pino({
   base,
   level: isDevelopmentMode ? 'debug' : 'info',
-  enabled: config.NODE_ENV !== 'test'
+  enabled: config.env !== 'test'
 })

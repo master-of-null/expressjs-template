@@ -1,10 +1,11 @@
+const httpStatus = require('http-status')
 const acronymService = require('../services/acronym')
 const catchAsync = require('./services/catch-async')
 
 const createAcronym = catchAsync(async (req, res) => {
   const { value, description } = req.body
   await acronymService.createAcronym(value, description)
-  res.send('Success!')
+  res.status(httpStatus.CREATED).send({ message: 'Success!' })
 })
 
 const getAcronyms = catchAsync(async (req, res) => {

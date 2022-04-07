@@ -29,7 +29,7 @@ const errorHandler = (err, req, res, next) => {
     ...(config.env === 'development' && { stack: err.stack })
   }
 
-  if (config.env === 'development') {
+  if (config.env === 'development' || config.env === 'test') {
     logger.error(err)
   }
 
