@@ -1,5 +1,6 @@
 const httpStatus = require('http-status')
 const acronymService = require('../services/acronym')
+const paginationService = require('./services/pagination')
 const catchAsync = require('./services/catch-async')
 
 const createAcronym = catchAsync(async (req, res) => {
@@ -11,9 +12,10 @@ const createAcronym = catchAsync(async (req, res) => {
 const getAcronyms = catchAsync(async (req, res) => {
   const { limit, from: offset } = req.query
 
-  const { count } = await acronymService.getCount()
+  const count = await acronymService.getCount()
   const results = await acronymService.getAcronyms(offset, limit)
 
+  paginationService.setPaginationHeaders(res, { count, limit, offset })
   res.send({ results, count })
 })
 

@@ -1,7 +1,7 @@
 const request = require('supertest')
 const { faker } = require('@faker-js/faker')
-const db = require('../../../db/db')
-const app = require('../../../src/app')
+const db = require('../../../../db/db')
+const app = require('../../../../src/app')
 
 describe('Acronyms Endpoints', () => {
   describe('POST /v1/acronyms', () => {
