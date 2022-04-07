@@ -22,8 +22,13 @@ const getAcronyms = catchAsync(async (req, res) => {
 const updateAcronym = catchAsync(async (req, res) => {
   const { acronym } = req.params
   const { description } = req.body
-  await acronymService.updateAcronym(acronym, description)
-  res.send('Success!')
+  const wasUpdated = await acronymService.updateAcronym(acronym, description)
+
+  if (wasUpdated) {
+    res.status(httpStatus.NO_CONTENT).send('Success!')
+  } else {
+    res.status(httpStatus.NOT_FOUND).send()
+  }
 })
 
 const deleteAcronym = catchAsync(async (req, res) => {

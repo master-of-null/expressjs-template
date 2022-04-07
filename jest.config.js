@@ -4,5 +4,6 @@ module.exports = {
   testMatch: ['<rootDir>/__tests__/**/*.test.js'],
   collectCoverageFrom: ['src/**/*.js'],
   globalSetup: '<rootDir>/__tests__/global-setup.js',
-  globalTeardown: '<rootDir>/__tests__/global-teardown.js'
+  globalTeardown: '<rootDir>/__tests__/global-teardown.js',
+  testTimeout: 10000
 }
