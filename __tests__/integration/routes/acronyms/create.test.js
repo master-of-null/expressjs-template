@@ -8,7 +8,7 @@ describe('Acronyms Endpoints', () => {
     it('should generate correct response and add acronym to database if done correctly', async () => {
       // setup
       const acronymParams = {
-        value: faker.datatype.string().toUpperCase(),
+        value: faker.datatype.string(8).toUpperCase(),
         description: faker.lorem.sentence()
       }
 

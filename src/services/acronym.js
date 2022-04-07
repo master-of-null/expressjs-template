@@ -43,8 +43,10 @@ const updateAcronym = async (value, description) => {
 const deleteAcronym = async (value) => {
   // TODO: cleanup for one DB call instead of two
   const acronymDb = Acronyms()
-  const { id } = await acronymDb.where({ value }).first()
-  await acronymDb.where({ id }).del()
+  const record = await acronymDb.where({ value }).first()
+  if (!record) return false
+  await acronymDb.where({ id: record.id }).del()
+  return true
 }
 
 module.exports = {

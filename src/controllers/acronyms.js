@@ -28,8 +28,12 @@ const updateAcronym = catchAsync(async (req, res) => {
 
 const deleteAcronym = catchAsync(async (req, res) => {
   const { acronym } = req.params
-  await acronymService.deleteAcronym(acronym)
-  res.send('Success!')
+  const wasDeleted = await acronymService.deleteAcronym(acronym)
+  if (wasDeleted) {
+    res.status(httpStatus.NO_CONTENT).send('Success!')
+  } else {
+    res.status(httpStatus.NOT_FOUND).send()
+  }
 })
 
 module.exports = {

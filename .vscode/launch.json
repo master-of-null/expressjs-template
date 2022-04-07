@@ -8,7 +8,7 @@
       "env": { "CI": "true" },
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
       "envFile": "${workspaceFolder}/.env",
-      "args": ["test", "--runInBand", "--no-cache", "{file}"],
+      "args": ["test", "${file}", "--runInBand", "--no-cache"],
       "cwd": "${workspaceRoot}",
       "protocol": "inspector",
       "console": "integratedTerminal",
