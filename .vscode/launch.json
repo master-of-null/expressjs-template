@@ -8,7 +8,7 @@
       "type": "node-terminal",
       "request": "launch",
       "name": "Launch File as jest test",
-      "command": "yarn test -- ${file}",
+      "command": "yarn test -- ${file} --forceExit",
       "envFile": "${workspaceFolder}/.env",
       "internalConsoleOptions": "openOnSessionStart",
     }

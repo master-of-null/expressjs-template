@@ -6,8 +6,8 @@ const ApiError = require('../lib/errors/ApiError')
 const errorConverter = (err, req, res, next) => {
   let error = err
   if (!(error instanceof ApiError)) {
-    const statusCode = error.statusCode || httpStatus.INTERNAL_SERVER_ERROR
-    const message = error.message || httpStatus[statusCode]
+    const statusCode = httpStatus.INTERNAL_SERVER_ERROR
+    const message = httpStatus[statusCode]
     error = new ApiError(statusCode, message, false, err.stack)
   }
   next(error)
@@ -29,7 +29,7 @@ const errorHandler = (err, req, res, next) => {
     ...(config.env === 'development' && { stack: err.stack })
   }
 
-  if (config.env === 'development' || config.env === 'test') {
+  if (config.env === 'development') {
     logger.error(err)
   }
 
