@@ -1,16 +1,28 @@
-version: '3'
+version: '3.7'
 
 services:
   node-app:
     build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://testuser:knextest@postgres:5432/knex_test
+      NODE_ENV: development
+      PORT: 3000
     image: node-app
     ports:
       - '3000:3000'
+    command: bash -c "yarn db:migrate && yarn db:seed && yarn dev"
     volumes:
       - .:/usr/src/app
-    networks:
-      - node-network
 
-networks:
-  node-network:
-    driver: bridge
+  postgres:
+    image: postgres:14-alpine
+    # see https://www.postgresql.org/docs/current/non-durability.html
+    command: '-c full_page_writes=off -c fsync=off -c synchronous_commit=off'
+    ports:
+      - '25432:5432'
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: knextest
+      POSTGRES_DB: knex_test

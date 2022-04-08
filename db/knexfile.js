@@ -1,13 +1,10 @@
+const config = require('../src/config/config')
 // Update with your config settings.
 
 module.exports = {
   development: {
     client: 'pg',
-    connection: {
-      database: 'expressjs',
-      user: 'postgres',
-      password: null
-    },
+    connection: config.databaseUrl,
     pool: {
       min: 2,
       max: 10
@@ -22,10 +19,7 @@ module.exports = {
   },
   test: {
     client: 'pg',
-    connection: {
-      user: 'postgres',
-      password: null
-    },
+    connection: config.databaseUrl,
     migrations: {
       tableName: 'knex_migrations',
       directory: `${__dirname}/migrations`

@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:latest
 
 WORKDIR /usr/src/app
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["yarn", "dev"]
+CMD yarn dev

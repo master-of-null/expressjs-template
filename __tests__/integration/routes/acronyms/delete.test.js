@@ -4,14 +4,15 @@ const db = require('../../../../db/db')
 const app = require('../../../../src/app')
 
 describe('DELETE /v1/acronyms', () => {
-  it('should generate correct response and add acronym to database if done correctly', async () => {
+  const acronymParams = {
+    value: faker.datatype.string(8).toUpperCase(),
+    description: faker.lorem.sentence()
+  }
+  beforeAll(() => {
     // setup
-    const acronymParams = {
-      value: faker.datatype.string(8).toUpperCase(),
-      description: faker.lorem.sentence()
-    }
-    await db('acronyms').insert(acronymParams)
-
+    return db('acronyms').insert(acronymParams)
+  })
+  it('should generate correct response and add acronym to database if done correctly', async () => {
     // actions
     await request(app).delete(`/v1/acronym/${acronymParams.value}`).expect(204)
     const dbItem = await db('acronyms').where(acronymParams).first()
