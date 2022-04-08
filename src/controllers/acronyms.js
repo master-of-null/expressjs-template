@@ -1,5 +1,5 @@
 const httpStatus = require('http-status')
-const acronymService = require('../services/acronym')
+const acronymService = require('../repositories/acronym')
 const paginationService = require('./services/pagination')
 const catchAsync = require('./services/catch-async')
 

@@ -10,10 +10,13 @@ const mapAcronym = (dbRow) => {
 }
 
 const createAcronym = async (value, description) => {
-  return await Acronyms().insert({
-    value: value.toUpperCase(),
-    description
-  })
+  return await Acronyms()
+    .returning(['value', 'description'])
+    .insert({
+      value: value.toUpperCase(),
+      description
+    })
+    .then(([acronym]) => acronym)
 }
 
 const getCount = async () => {
@@ -34,20 +37,24 @@ const getAcronyms = async (offset = 0, limit = 10) => {
 }
 
 const updateAcronym = async (value, description) => {
+  const acronymVal = value.toUpperCase()
+
   // TODO: cleanup for one DB call instead of two
   const acronymDb = Acronyms()
-  const record = await acronymDb.where({ value }).first()
+  const record = await acronymDb.where({ value: acronymVal }).first()
 
   if (!record) return false
 
-  await acronymDb.where({ id: record.id }).update({ value, description })
+  await acronymDb
+    .where({ id: record.id })
+    .update({ value: acronymVal, description })
   return true
 }
 
 const deleteAcronym = async (value) => {
   // TODO: cleanup for one DB call instead of two
   const acronymDb = Acronyms()
-  const record = await acronymDb.where({ value }).first()
+  const record = await acronymDb.where({ value: value.toUpperCase() }).first()
 
   if (!record) return false
 
