@@ -27,10 +27,9 @@ const getCount = async () => {
     .then(({ count }) => count)
 }
 
-const getAcronyms = async (offset = 0, limit = 10) => {
-  return await db
-    .select('*')
-    .from('acronyms')
+const getAcronyms = async (search = '', offset = 0, limit = 10) => {
+  return await Acronyms()
+    .where('value', 'like', `%${search.toUpperCase()}%`)
     .offset(offset)
     .limit(limit)
     .then((acronyms) => acronyms.map(mapAcronym))

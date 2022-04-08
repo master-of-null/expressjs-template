@@ -10,10 +10,10 @@ const createAcronym = catchAsync(async (req, res) => {
 })
 
 const getAcronyms = catchAsync(async (req, res) => {
-  const { limit, from: offset } = req.query
+  const { limit, from: offset, search } = req.query
 
   const count = await acronymService.getCount()
-  const results = await acronymService.getAcronyms(offset, limit)
+  const results = await acronymService.getAcronyms(search, offset, limit)
 
   paginationService.setPaginationHeaders(res, { count, limit, offset })
   res.send({ results, count })
