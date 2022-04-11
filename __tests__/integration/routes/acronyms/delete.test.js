@@ -1,6 +1,6 @@
 const request = require('supertest')
-const authMiddleware = require('../../../../src/middlewares/auth')
 const { faker } = require('@faker-js/faker')
+
 const db = require('../../../../db/db')
 const app = require('../../../../src/app')
 
@@ -9,15 +9,15 @@ describe('DELETE /v1/acronyms', () => {
     value: faker.datatype.string(8).toUpperCase(),
     description: faker.lorem.sentence()
   }
-  beforeAll(() => {
+  beforeAll(async () => {
     // setup
-    return db('acronyms').insert(acronymParams)
+    await db('acronyms').insert(acronymParams)
   })
 
   it('should call auth middleware', async () => {
     // actions
     await request(app)
-      .delete(`/v1/acronym/${acronymParams.value}`)
+      .delete(`/v1/acronym/${encodeURIComponent(acronymParams.value)}`)
       .set('X-Api-Key', 'badToken')
       .expect(401)
     const dbItem = await db('acronyms').where(acronymParams).first()
@@ -29,7 +29,7 @@ describe('DELETE /v1/acronyms', () => {
   it('should generate correct response and add acronym to database if done correctly', async () => {
     // actions
     await request(app)
-      .delete(`/v1/acronym/${acronymParams.value}`)
+      .delete(`/v1/acronym/${encodeURIComponent(acronymParams.value)}`)
       .set('X-Api-Key', 'validToken')
       .expect(204)
     const dbItem = await db('acronyms').where(acronymParams).first()

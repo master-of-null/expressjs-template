@@ -1,5 +1,6 @@
 const request = require('supertest')
 
+const db = require('../../../../db/db')
 const app = require('../../../../src/app')
 
 describe('GET /v1/acronyms', () => {
@@ -13,22 +14,24 @@ describe('GET /v1/acronyms', () => {
   })
 
   it('should correct pagination headers in response', async () => {
+    const limit = 10
+    const offset = 21
+    const searchStr = 'b'
     // actions
     const res = await request(app)
-      .get('/v1/acronym?limit=10&from=21&search=b')
+      .get(`/v1/acronym?limit=${limit}&from=${offset}&search=${searchStr}`)
       .expect(200)
+    // construct desired result query
+    const { rows: dbRecords } = await db.raw(
+      `SELECT value, description FROM acronyms WHERE value ilike '%${searchStr}%' LIMIT ${limit} OFFSET ${offset}`
+    )
 
     // assert
     expect(res.headers['content-type']).toBe('application/json; charset=utf-8')
     expect(res.body.results).toHaveLength(10)
-    expect(res.body.results[0]).toEqual({
-      value: 'B9',
-      description: 'Boss is watching'
-    })
+    expect(res.body.results[0]).toEqual(dbRecords[0])
 
     expect(res.header).toHaveProperty('x-paging-nextoffset', '31')
-    expect(res.header).toHaveProperty('x-paging-pagecount', '29')
-    expect(res.header).toHaveProperty('x-paging-totalrecordcount', '283')
     expect(res.header).toHaveProperty('x-paging-pagesize', '10')
   })
 
@@ -45,10 +48,19 @@ describe('GET /v1/acronyms', () => {
       value: '1DR',
       description: 'I wonder'
     })
+    const { count: dbRecordCount } = await db('acronyms').count().first()
 
-    expect(res.header).toHaveProperty('x-paging-nextoffset', '31')
-    expect(res.header).toHaveProperty('x-paging-pagecount', '155')
-    expect(res.header).toHaveProperty('x-paging-totalrecordcount', '1541')
+    const expectedPageCount = Math.ceil(Number(dbRecordCount) / 10)
+
     expect(res.header).toHaveProperty('x-paging-pagesize', '10')
+    expect(res.header).toHaveProperty('x-paging-nextoffset', '31')
+    expect(res.header).toHaveProperty(
+      'x-paging-pagecount',
+      String(expectedPageCount)
+    )
+    expect(res.header).toHaveProperty(
+      'x-paging-totalrecordcount',
+      dbRecordCount
+    )
   })
 })

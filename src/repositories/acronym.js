@@ -46,7 +46,6 @@ const getAcronyms = async (search = '', offset = 0, limit = 10) => {
 const updateAcronym = async (value, description) => {
   const acronymVal = value.toUpperCase()
 
-  // TODO: cleanup for one DB call instead of two
   const acronymDb = Acronyms()
   const record = await acronymDb.where({ value: acronymVal }).first()
 
@@ -54,12 +53,11 @@ const updateAcronym = async (value, description) => {
 
   await acronymDb
     .where({ id: record.id })
-    .update({ value: acronymVal, description })
+    .update({ value: acronymVal, description, updated_at: new Date() })
   return true
 }
 
 const deleteAcronym = async (value) => {
-  // TODO: cleanup for one DB call instead of two
   const acronymDb = Acronyms()
   const record = await acronymDb.where({ value: value.toUpperCase() }).first()
 
