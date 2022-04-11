@@ -25,6 +25,10 @@ describe('Validate middleware', () => {
     const nextMock = jest.fn()
 
     validator(payload, {}, nextMock)
-    expect(nextMock.mock.calls[0][0]).toBeInstanceOf(ApiError)
+    const error = nextMock.mock.calls[0][0]
+    expect(error).toBeDefined()
+    expect(error).toBeInstanceOf(ApiError)
+    expect(error.statusCode).toBe(400)
+    expect(error.isOperational).toBe(true)
   })
 })

@@ -6,6 +6,7 @@ const {
   deleteAcronym
 } = require('../../controllers/acronyms')
 const validate = require('../../middlewares/validate')
+const authenticate = require('../../middlewares/auth')
 const acronymSchemas = require('./schemas/acronyms')
 
 const router = express.Router()
@@ -17,7 +18,7 @@ router
 
 router
   .route('/:acronym')
-  .put(validate(acronymSchemas.updateAcronym), updateAcronym)
-  .delete(deleteAcronym)
+  .put(authenticate, validate(acronymSchemas.updateAcronym), updateAcronym)
+  .delete(authenticate, deleteAcronym)
 
 module.exports = router
