@@ -22,13 +22,13 @@ describe('GET /v1/acronyms', () => {
     expect(res.headers['content-type']).toBe('application/json; charset=utf-8')
     expect(res.body.results).toHaveLength(10)
     expect(res.body.results[0]).toEqual({
-      value: '1DR',
-      description: 'I wonder'
+      value: 'B9',
+      description: 'Boss is watching'
     })
 
     expect(res.header).toHaveProperty('x-paging-nextoffset', '31')
-    expect(res.header).toHaveProperty('x-paging-pagecount', '155')
-    expect(res.header).toHaveProperty('x-paging-totalrecordcount', '1541')
+    expect(res.header).toHaveProperty('x-paging-pagecount', '29')
+    expect(res.header).toHaveProperty('x-paging-totalrecordcount', '283')
     expect(res.header).toHaveProperty('x-paging-pagesize', '10')
   })
 

@@ -19,20 +19,28 @@ const createAcronym = async (value, description) => {
     .then(([acronym]) => acronym)
 }
 
-const getCount = async () => {
-  return await db
+const getCount = async (column, operator, value) => {
+  const hasValidWhereClause =
+    typeof column === 'string' &&
+    typeof operator === 'string' &&
+    typeof value === 'string'
+
+  const { count } = await Acronyms()
     .count('*')
-    .from('acronyms')
+    .modify((queryBuilder) => {
+      if (hasValidWhereClause) queryBuilder.where(column, operator, value)
+    })
     .first()
-    .then(({ count }) => count)
+
+  return count
 }
 
 const getAcronyms = async (search = '', offset = 0, limit = 10) => {
-  return await Acronyms()
-    .where('value', 'like', `%${search.toUpperCase()}%`)
+  const res = await Acronyms()
+    .where('value', 'ilike', `%${search}%`)
     .offset(offset)
     .limit(limit)
-    .then((acronyms) => acronyms.map(mapAcronym))
+  return res.map(mapAcronym)
 }
 
 const updateAcronym = async (value, description) => {
