@@ -1,4 +1,4 @@
-const setPaginationHeaders = (res, { count, limit, offset }) => {
+const setPaginationHeaders = (res, { count = 0, limit = 0, offset = 0 }) => {
   const pageCount = Math.ceil(Number(count) / Number(limit))
   const nextOffset = Number(limit) + Number(offset)
 

@@ -11,6 +11,9 @@ describe('GET /v1/acronyms', () => {
     // assert
     expect(res.headers['content-type']).toBe('application/json; charset=utf-8')
     expect(res.body).toHaveLength(10)
+
+    expect(res.header).toHaveProperty('x-paging-pagesize', '10')
+    expect(res.header).toHaveProperty('x-paging-nextoffset', '10')
   })
 
   it('should correct pagination headers in response', async () => {
