@@ -10,7 +10,7 @@ describe('GET /v1/acronyms', () => {
 
     // assert
     expect(res.headers['content-type']).toBe('application/json; charset=utf-8')
-    expect(res.body.data).toHaveLength(10)
+    expect(res.body).toHaveLength(10)
   })
 
   it('should correct pagination headers in response', async () => {
@@ -33,8 +33,8 @@ describe('GET /v1/acronyms', () => {
 
     // assert
     expect(res.headers['content-type']).toBe('application/json; charset=utf-8')
-    expect(res.body.data).toHaveLength(10)
-    expect(res.body.data[0]).toEqual(dbRecords[0])
+    expect(res.body).toHaveLength(10)
+    expect(res.body[0]).toEqual(dbRecords[0])
 
     expect(res.header).toHaveProperty('x-paging-nextoffset', '31')
     expect(res.header).toHaveProperty('x-paging-pagesize', '10')
@@ -52,8 +52,8 @@ describe('GET /v1/acronyms', () => {
 
     // assert
     expect(res.headers['content-type']).toBe('application/json; charset=utf-8')
-    expect(res.body.data).toHaveLength(10)
-    expect(res.body.data[0]).toEqual({
+    expect(res.body).toHaveLength(10)
+    expect(res.body[0]).toEqual({
       value: '1DR',
       description: 'I wonder'
     })

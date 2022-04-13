@@ -19,7 +19,7 @@ const getAcronyms = catchAsync(async (req, res) => {
   )
 
   paginationService.setPaginationHeaders(res, { offset, limit, count })
-  res.send({ data, count })
+  res.send(data)
 })
 
 const updateAcronym = catchAsync(async (req, res) => {
