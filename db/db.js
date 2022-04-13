@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/order
 const Knex = require('knex')
 const knexfile = require('./knexfile')
+const config = require('../src/config/config')
 
-const db = Knex(knexfile[process.env.NODE_ENV])
+const db = Knex(knexfile[config.env])
 
 module.exports = db

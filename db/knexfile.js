@@ -19,7 +19,7 @@ module.exports = {
   },
   test: {
     client: 'pg',
-    connection: config.databaseUrl,
+    connection: 'postgres://postgres:null@localhost:5432/test_express_database',
     migrations: {
       tableName: 'knex_migrations',
       directory: `${__dirname}/migrations`

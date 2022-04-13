@@ -5,7 +5,10 @@ const TEST_DB = 'test_express_database'
 
 // Create the database
 const createTestDatabase = async () => {
-  const knex = Knex(knexConfig.test)
+  const knex = Knex({
+    ...knexConfig.test,
+    connection: 'postgres://postgres:null@localhost:5432'
+  })
 
   try {
     await knex.raw(`DROP DATABASE IF EXISTS ${TEST_DB}`)

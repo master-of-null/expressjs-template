@@ -12,8 +12,7 @@
     "db:migrate": "knex migrate:latest --knexfile db/knexfile.js",
     "db:rollback": "knex migrate:rollback --knexfile db/knexfile.js",
     "db:seed": "knex seed:run --knexfile db/knexfile.js",
-    "test": "jest --runInBand --forceExit",
-    "docker:test": "docker-compose run --rm node-app yarn test"
+    "test": "jest --runInBand --forceExit"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.1.2",

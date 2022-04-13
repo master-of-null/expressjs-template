@@ -4,7 +4,7 @@ const ApiError = require('../lib/errors/ApiError')
 
 const schemaOptions = {
   abortEarly: false,
-  // TODO: write Ramda#pick type function to give better feedback
+  // TODO: write Ramda#pick type function to give better feedback to users in the case of ignored params
   stripUnknown: true
 }
 

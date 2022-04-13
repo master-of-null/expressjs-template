@@ -21,7 +21,7 @@ services:
     # see https://www.postgresql.org/docs/current/non-durability.html
     command: '-c full_page_writes=off -c fsync=off -c synchronous_commit=off'
     ports:
-      - '25432:5432'
+      - '5432:5432'
     environment:
       POSTGRES_USER: testuser
       POSTGRES_PASSWORD: knextest
