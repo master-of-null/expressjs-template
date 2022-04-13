@@ -1,6 +1,6 @@
 const request = require('supertest')
 const { faker } = require('@faker-js/faker')
-const db = require('../../../../db/db')
+const db = require('../../../../db')
 const app = require('../../../../src/app')
 
 describe('Acronyms Endpoints', () => {

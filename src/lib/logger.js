@@ -1,5 +1,5 @@
 const pino = require('pino')
-const config = require('../config/config')
+const config = require('../config')
 
 const base = {}
 const isDevelopmentMode = config.env === 'development'

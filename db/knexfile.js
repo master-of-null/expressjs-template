@@ -1,4 +1,4 @@
-const config = require('../src/config/config')
+const config = require('../src/config')
 // Update with your config settings.
 
 module.exports = {

@@ -12,6 +12,7 @@
     "db:migrate": "knex migrate:latest --knexfile db/knexfile.js",
     "db:rollback": "knex migrate:rollback --knexfile db/knexfile.js",
     "db:seed": "knex seed:run --knexfile db/knexfile.js",
+    "db:init": "createdb acronym_dev_db && yarn db:migrate && yarn db:seed",
     "test": "jest --runInBand --forceExit"
   },
   "devDependencies": {

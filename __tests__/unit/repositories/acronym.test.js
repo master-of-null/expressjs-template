@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker')
-const db = require('../../../db/db')
+const db = require('../../../db')
 const {
   createAcronym,
   getAcronyms,
