@@ -19,28 +19,17 @@ const createAcronym = async (value, description) => {
     .then(([acronym]) => acronym)
 }
 
-const getCount = async (column, operator, value) => {
-  const hasValidWhereClause =
-    typeof column === 'string' &&
-    typeof operator === 'string' &&
-    typeof value === 'string'
-
-  const { count } = await Acronyms()
-    .count('*')
-    .modify((queryBuilder) => {
-      if (hasValidWhereClause) queryBuilder.where(column, operator, value)
-    })
-    .first()
-
-  return count
-}
-
 const getAcronyms = async (search = '', offset = 0, limit = 10) => {
-  const res = await Acronyms()
-    .where('value', 'ilike', `%${search}%`)
-    .offset(offset)
-    .limit(limit)
-  return res.map(mapAcronym)
+  const query = Acronyms().where('value', 'ilike', `%${search}%`)
+
+  const [{ count }, data] = await Promise.all([
+    query.clone().count().first(),
+    query.clone().offset(offset).limit(limit)
+  ])
+  return {
+    data: data.map(mapAcronym),
+    count
+  }
 }
 
 const updateAcronym = async (value, description) => {
@@ -69,7 +58,6 @@ const deleteAcronym = async (value) => {
 
 module.exports = {
   createAcronym,
-  getCount,
   getAcronyms,
   updateAcronym,
   deleteAcronym

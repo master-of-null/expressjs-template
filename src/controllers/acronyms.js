@@ -12,11 +12,14 @@ const createAcronym = catchAsync(async (req, res) => {
 const getAcronyms = catchAsync(async (req, res) => {
   const { limit, from: offset, search = '' } = req.query
 
-  const count = await acronymService.getCount('value', 'ilike', `%${search}%`)
-  const results = await acronymService.getAcronyms(search, offset, limit)
+  const { data, count } = await acronymService.getAcronyms(
+    search,
+    offset,
+    limit
+  )
 
-  paginationService.setPaginationHeaders(res, { count, limit, offset })
-  res.send({ results, count })
+  paginationService.setPaginationHeaders(res, { offset, limit, count })
+  res.send({ data, count })
 })
 
 const updateAcronym = catchAsync(async (req, res) => {

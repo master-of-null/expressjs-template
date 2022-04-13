@@ -18,4 +18,20 @@ describe('setPaginationHeaders', () => {
     expect(state).toHaveProperty('X-Paging-NextOffset', 14)
     expect(state).toHaveProperty('X-Paging-PageSize', 12)
   })
+
+  it('should correctlys calculate page data', () => {
+    const state = {}
+    const mock = {
+      set: (key, value) => {
+        state[key] = value
+      }
+    }
+
+    setPaginationHeaders(mock, { count: 9, limit: 12, offset: 21 })
+
+    expect(state).toHaveProperty('X-Paging-PageCount', 1)
+    expect(state).toHaveProperty('X-Paging-TotalRecordCount', 9)
+    expect(state).toHaveProperty('X-Paging-NextOffset', null)
+    expect(state).toHaveProperty('X-Paging-PageSize', 12)
+  })
 })

@@ -37,10 +37,10 @@ describe('Acronym Repository', () => {
   describe('#getAcronyms', () => {
     it('should successfully retrieve default limit of acronyms', async () => {
       const acronyms = await getAcronyms()
-      expect(acronyms).toHaveLength(10)
+      expect(acronyms.data).toHaveLength(10)
 
       // assert correct shape
-      acronyms.map((acronym) =>
+      acronyms.data.map((acronym) =>
         expect(acronym).toContainAllKeys(['value', 'description'])
       )
     })
